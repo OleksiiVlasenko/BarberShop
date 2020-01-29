@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'net/smtp'
 
 configure do
   enable :sessions
@@ -36,6 +37,7 @@ get '/visit' do
 end
 
 post '/visit' do
+
  if params[:user_name]==''
     @user_name = session[:identity]
     
@@ -56,6 +58,7 @@ post '/visit' do
   @error=  'Введіть будь ласка контактний телефон'
   return erb :visit
   end
+
   info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
   f = File.open '.\public\visit.txt','a'
   f.write info
@@ -74,6 +77,21 @@ post '/about' do
 @your_mail = params[:your_mail]
 
 erb "<h3>Вітаю Вас Ви підписались на нововини від нашої компанії  #{@your_mail} </h3> <center> <a href=""<%=@where_user_came_from %>"">Повернутись</a></center>"
+
+
+
+# from = 'a.a.a.vlasenko@gmail.com'
+# to = 'a.a.a.vlasenko@gmail.com'
+# theme = 'asd'
+# text="asd"
+# message=""
+# message<<"From: ot kogo <#{from}>\n"
+# message<<"To: #{to}\n"
+# message<<"Subject: #{theme}\n"
+# message<<text
+# Net::SMTP.new('smtp.gmail.com', 587).start('a.a.a.vlasenko@gmail.com', 'a.a.a.vlasenko', 'A159159a', :login) do |smtp|
+# smtp.send_message message, from, to
+# end
 
 end
 

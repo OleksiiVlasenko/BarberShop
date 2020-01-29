@@ -26,23 +26,44 @@ end
 
 get '/' do
    halt erb (:table)
-   erb :table1
-   erb 'Can you handle a <a href="/secure/place">secret</a>?'
+   # erb :table1
+   # erb 'Can you handle a <a href="/secure/place">secret</a>?'
   
 end
+get '/visit' do
+ 
+  erb :visit
+end
+
 
 get '/login/form' do
   erb :login_form
 end
 
 
-
+post '/' do
+  if params[:user_name]==''
+    @user_name = session[:identity]
+    
+  else
+    @user_name = params[:user_name]
+  end
+  @phone = params[:phone_number]
+  @date = params[:date]
+  
+  info = "#{@user_name} #{@phone} #{@date} \n"
+  f = File.open '.\public\visit.txt','a'
+  f.write info
+  f.close
+  erb :visit
+  erb "<center><h3><b>Уважаемый <%=@user_name%>!!!</font></b></h4> <h4>Мы Вам перезвоним на телефон: <%=@phone%></h4>  <h4><%=@date%>За несколько часов до <%=@date%> !!</h4></center>"
+end
 
 post '/login/attempt' do
   session[:identity] = params['username'] if  params['password'] == 'nube'
   @where_user_came_from = session[:previous_url] || '/'
   redirect to @where_user_came_from
- erb "<div class='alert alert-message'>Wrong password</div>"
+
 
 end
 

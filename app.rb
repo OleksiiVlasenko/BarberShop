@@ -36,6 +36,16 @@ get '/visit' do
 end
 
 
+get '/about' do
+  erb :about
+end
+
+post '/about' do
+@nu = params[:user_name]
+
+erb "adkjaskdj #{@nu}"
+end
+
 get '/login/form' do
   erb :login_form
 end

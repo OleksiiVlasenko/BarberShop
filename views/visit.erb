@@ -1,8 +1,7 @@
 
-<div class="container-xl">
+<label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер <%=session[:barber]%></label>
 
-<br>
-<p>Форма записи на стрижку</p>
+<div class="container-xl">
 <form action="/visit" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">Ваше имя</label>
@@ -11,12 +10,12 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Телефон</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" name="phone_number">
+    <input type="text" class="form-control ccc" id="exampleInputPassword1" name="phone_number">
     <small id="emailHelp" class="form-text text-muted">Пожалуйста введите Ваше телефон</small>
   </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Время</label>
-    <input type="text" class="form-control" id="date" name="date" value="<%=Time.new%>">
+    <input type="text" class="form-control ccc" id="date" name="date" value="<%=Time.new%>">
     <small id="emailHelp" class="form-text text-muted">Пожалуйста введите удобное Вам время</small>
   </div>
   <div class="form-group">
@@ -29,13 +28,38 @@
       <option>Артур</option>
     </select>
   </div>
+  
 </div>
-
+<div class="form-group" data-toggle="tooltip" title="Список кольорів оновлюєтся кожен день">
+<label for="exampleFormControlSelect1">Виберіть колір на покраску волося</label>
+<select id="colorpicker" name="color">
+  <option value="#7bd148">Green</option>
+  <option value="#5484ed">Bold blue</option>
+  <option value="#a4bdfc">Blue</option>
+  <option value="#46d6db">Turquoise</option>
+  <option value="#7ae7bf">Light green</option>
+  <option value="#51b749">Bold green</option>
+  <option value="#fbd75b">Yellow</option>
+  <option value="#ffb878">Orange</option>
+  <option value="#ff887c">Red</option>
+  <option value="#dc2127">Bold red</option>
+  <option value="#dbadff">Purple</option>
+  <option value="#e1e1e1">Gray</option>
+</select>
+</div>
 <br>  
-  <button type="submit" class="btn btn-primary">Записаться на стрижку</button>
+  <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Натиснувши кнопку ви згодились на обробку персональних даних. Не переживайте Ваша інформація передаватись не буде 3м особам">Записати</button>
 </form>
-
-
 </div>
 
+
+<br>
+
+<script type="text/javascript">
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+$('#colorpicker').simplecolorpicker();
+
+</script>
 

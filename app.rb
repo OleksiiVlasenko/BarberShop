@@ -46,9 +46,10 @@ post '/visit' do
   @phone = params[:phone_number]
   @date = params[:date]
   @barber = params[:barber]
+  @color= params[:color]
+  session[:barber] = params[:barber]
 
-
-  info = "#{@user_name} #{@phone} #{@date} #{@barber}\n"
+  info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
   f = File.open '.\public\visit.txt','a'
   f.write info
   f.close

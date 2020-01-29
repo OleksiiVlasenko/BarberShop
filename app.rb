@@ -19,7 +19,7 @@ before '/secure/*' do
   
   unless session[:identity]
       session[:previous_url] = request.path
-    @error = 'Sorry, you need to be logged in to visit ' + request.path
+    @error = 'Sorry, you need to be logged in with password ' + request.path
     halt erb(:login_form)
 end
 end
@@ -63,7 +63,7 @@ post '/login/attempt' do
   session[:identity] = params['username'] if  params['password'] == 'nube'
   @where_user_came_from = session[:previous_url] || '/'
   redirect to @where_user_came_from
-
+erb "<div class='alert alert-message'>Wrong password</div>"
 
 end
 

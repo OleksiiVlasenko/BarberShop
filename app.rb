@@ -35,24 +35,8 @@ get '/visit' do
   erb :visit
 end
 
-
-get '/about' do
-  erb :about
-end
-
-post '/about' do
-@nu = params[:user_name]
-
-erb "adkjaskdj #{@nu}"
-end
-
-get '/login/form' do
-  erb :login_form
-end
-
-
-post '/' do
-  if params[:user_name]==''
+post '/visit' do
+ if params[:user_name]==''
     @user_name = session[:identity]
     
   else
@@ -72,6 +56,30 @@ post '/' do
   erb :visit
   erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"
 end
+
+
+get '/about' do
+  erb :about
+end
+
+post '/about' do
+@your_mail = params[:your_mail]
+
+erb "<h3>Вітаю Вас Ви підписались на нововини від нашої компанії  #{@your_mail} </h3> <center> <a href=""<%=@where_user_came_from %>"">Повернутись</a></center>"
+
+end
+
+
+
+
+get '/login/form' do
+  erb :login_form
+end
+
+
+post '/' do
+  
+  end
 
 post '/login/attempt' do
   session[:identity] = params['username'] if  params['password'] == 'nube'

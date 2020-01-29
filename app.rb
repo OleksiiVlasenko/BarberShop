@@ -8,7 +8,7 @@ end
 
 helpers do
   def username
-      session[:identity] ? session[:identity] : 'Hello stranger'     
+      session[:identity] ? session[:identity] : 'Привіт незнайомець'     
 
 end
 end
@@ -48,7 +48,14 @@ post '/visit' do
   @barber = params[:barber]
   @color= params[:color]
   session[:barber] = params[:barber]
-
+  if params[:user_name] == ''
+  @error=  'Введіть як вас звати або зареєструйтесь'
+  return erb :visit
+  end
+  if params[:phone_number] == ''
+  @error=  'Введіть будь ласка контактний телефон'
+  return erb :visit
+  end
   info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
   f = File.open '.\public\visit.txt','a'
   f.write info
@@ -83,16 +90,17 @@ post '/' do
   end
 
 post '/login/attempt' do
-  session[:identity] = params['username'] if  params['password'] == 'nube'
+  session[:identity] = params['username'] if  params['password'] == ''
   @where_user_came_from = session[:previous_url] || '/'
   redirect to @where_user_came_from
 erb "<div class='alert alert-message'>Wrong password</div>"
-
 end
+
 
 get '/logout' do
   if session.delete(:identity) !=nil
-  erb "<div class='alert alert-message'>Logged out</div>"
+  erb "<div class='alert alert-danger'>Вихід користувача<%=@user_name%> успішний! </div> "
+
 else
   redirect to '/'
 end

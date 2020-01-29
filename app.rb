@@ -48,15 +48,19 @@ post '/' do
   else
     @user_name = params[:user_name]
   end
+  
   @phone = params[:phone_number]
   @date = params[:date]
-  
-  info = "#{@user_name} #{@phone} #{@date} \n"
+  @barber = params[:barber]
+
+
+  info = "#{@user_name} #{@phone} #{@date} #{@barber}\n"
   f = File.open '.\public\visit.txt','a'
   f.write info
   f.close
+
   erb :visit
-  erb "<center><h3><b>Уважаемый <%=@user_name%>!!!</font></b></h4> <h4>Мы Вам перезвоним на телефон: <%=@phone%></h4>  <h4><%=@date%>За несколько часов до <%=@date%> !!</h4></center>"
+  erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"
 end
 
 post '/login/attempt' do

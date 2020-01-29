@@ -16,9 +16,22 @@
   </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Время</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" name="date">
+    <input type="text" class="form-control" id="date" name="date" value="<%=Time.new%>">
     <small id="emailHelp" class="form-text text-muted">Пожалуйста введите удобное Вам время</small>
   </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Example select</label>
+    <select class="form-control" id="barber" name='barber'>
+      <option>Наталія</option>
+      <option>Олена</option>
+      <option>Вікторія</option>
+      <option>Анастасія</option>
+      <option>Артур</option>
+    </select>
+  </div>
+</div>
+
+<br>  
   <button type="submit" class="btn btn-primary">Записаться на стрижку</button>
 </form>
 

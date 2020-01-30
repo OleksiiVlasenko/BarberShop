@@ -5,8 +5,8 @@ require 'net/smtp'
 require 'sqlite3'
 configure do
   enable :sessions
- @db = SQLite3::Database.new '.\public\barber.sqlite'
-  @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
+ @db = get_db
+ @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
 end
 
 helpers do
@@ -55,9 +55,12 @@ post '/visit' do
   @error=  'Введіть будь ласка контактний телефон'
   return erb :visit
   end
-  @db = SQLite3::Database.new '.\public\barber.sqlite'
-   @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
- @db.execute "insert into Users(name,phone,datestamp,barber,color) values('#{@user_name}','#{@phone}','#{@date}','#{@barber}','#{@color}')"
+  # @db = SQLite3::Database.new '.\public\barber.sqlite'
+  #  @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
+ # @db.execute "insert into Users(name,phone,datestamp,barber,color) values('#{@user_name}','#{@phone}','#{@date}','#{@barber}','#{@color}')"
+
+ @db = get_db
+@db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]
 @db.close
   info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
   f = File.open '.\public\visit.txt','a'
@@ -68,6 +71,10 @@ post '/visit' do
   erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"
 end
 
+
+def get_db
+return SQLite3::Database.new '.\public\barber.sqlite'
+end
 
 get '/about' do
   erb :about

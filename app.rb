@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'net/smtp'
-
+require 'sqlite3'
 configure do
   enable :sessions
 end
@@ -38,13 +38,8 @@ end
 
 post '/visit' do
 
- if params[:user_name]==''
-    @user_name = session[:identity]
-    
-  else
-    @user_name = params[:user_name]
-  end
   
+  @user_name = params[:user_name]
   @phone = params[:phone_number]
   @date = params[:date]
   @barber = params[:barber]
@@ -58,7 +53,9 @@ post '/visit' do
   @error=  'Введіть будь ласка контактний телефон'
   return erb :visit
   end
-
+db = SQLite3::Database.new '.\public\barber.sqlite'
+db.execute "insert into Users(Name,Phone,DateSamp,Barber,Color) values('#{@user_name}','#{@phone}','#{@date}','#{@barber}','#{@color}')"
+db.close
   info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
   f = File.open '.\public\visit.txt','a'
   f.write info

@@ -84,14 +84,14 @@ var datetimepickerFactory = function ($) {
 				],
 				dayOfWeek: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"]
 			},
-			en: { // English
+			en: { // Ukrainian
 				months: [
-					"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+					'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'
 				],
 				dayOfWeekShort: [
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+					"Ндл", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт"
 				],
-				dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+				dayOfWeek: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"]
 			},
 			el: { // Ελληνικά
 				months: [

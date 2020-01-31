@@ -67,6 +67,17 @@ post '/visit' do
   erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"
 end
 
+get '/show_users' do
+  @db = get_db
+ @db.results_as_hash = true
+ @db.execute "SELECT * FROM Users" do |row|
+ erb "#{row}"
+ end
+end
+
+# post '/show_users' do
+
+# end
 
 def get_db
 return SQLite3::Database.new '.\public\barber.sqlite'

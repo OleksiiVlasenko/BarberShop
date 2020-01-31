@@ -23,21 +23,26 @@ end
 
 
 before '/secure/*' do
-  
-  
   unless session[:identity]
-      session[:previous_url] = request.path
-    @error = 'Sorry, you need to be logged in with password ' + request.path
+    session[:previous_url] = request.path
+    @error = 'Sorry, you need to be logged in to visit ' + request.path
     halt erb(:login_form)
-end
+  end
 end
 
 get '/' do
-   halt erb (:table)
-   # erb :table1
-   # erb 'Can you handle a <a href="/secure/place">secret</a>?'
+   erb (:table)
+    
+  
   
 end
+
+post '/' do
+
+    @user_name = session[:identity]
+erb (:table)
+  end
+
 get '/visit' do
  
   erb :visit
@@ -128,16 +133,14 @@ get '/login/form' do
 end
 
 
-post '/' do
-  
-  end
+
 
 post '/login/attempt' do
-  session[:identity] = params['username'] if  params['password'] == ''
-  @where_user_came_from = session[:previous_url] || '/'
-  redirect to @where_user_came_from
-erb "<div class='alert alert-message'>Wrong password</div>"
+  session[:identity] = params['username']
+  where_user_came_from = session[:previous_url] || '/'
+  redirect to where_user_came_from
 end
+
 
 
 get '/logout' do

@@ -15,7 +15,7 @@
 <%db.results_as_hash = true%>
 <%result =  db.execute "SELECT * FROM Users order by id desc" %>
 <%result.each do |row|%>
-
+<body>
     <tr>
       <th scope="row"><%=row['id']%></th>
       <td><%=row['name']%></td>
@@ -23,6 +23,7 @@
       <td><%=row['barber']%></td>
     </tr>
 <%end%>
+</body>
 </table>
 
 

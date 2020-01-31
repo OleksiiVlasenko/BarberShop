@@ -11,7 +11,13 @@ end
 configure do
   enable :sessions
  @db = get_db
- @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
+ @db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
+ ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
+ TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
+
+ @db.execute 'CREATE TABLE IF NOT EXISTS "Barbers" 
+ ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
+ TEXT,"type"  TEXT, "workingtime" TEXT);'
 end
 
 helpers do
@@ -42,6 +48,12 @@ post '/' do
     @user_name = session[:identity]
 erb (:table)
   end
+before do
+#код который будет иницилиазирован перед всеми представлениями
+db = get_db 
+db.results_as_hash = true
+@barbers = db.execute "SELECT * FROM Barbers"
+end
 
 get '/visit' do
  

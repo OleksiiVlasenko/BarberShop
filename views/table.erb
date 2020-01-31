@@ -1,43 +1,24 @@
 
 <table class="table table-hover table-dark">
-  <thead class="thead-dark">
+  <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Ім'я</th>
-      <th scope="col">Тип напрямку</th>
+      <th scope="col">Майстер</th>
+      <th scope="col">Професійність</th>
       <th scope="col">Час роботи</th>
     </tr>
   </thead>
-  <tbody>
+ 
+
+<%result =  @barbers%>
+<%result.each do |row|%>
+<tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Наталія</td>
-      <td>Парикмахер</td>
-      <td>10:00 - 18:00</td>
+      <th scope="row"><%=row['id']%></th>
+      <td><%=row['name']%></td>
+      <td><%=row['type']%></td>
+      <td><%=row['workingtime']%></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-       <td>Олена</td>
-      <td>Парикмахер</td>
-      <td>10:00 - 18:00</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-       <td>Вікторія</td>
-      <td>Парикмахер</td>
-      <td>10:00 - 18:00</td>
-    </tr>
-        <tr>
-      <th scope="row">4</th>
-       <td>Анастасія</td>
-      <td>Парикмахер</td>
-      <td>10:00 - 18:00</td>
-    </tr>
-         <tr>
-      <th scope="row">5</th>
-       <td>Артур</td>
-      <td>Барбер</td>
-      <td>10:00 - 18:00</td>
-    </tr>
-  </tbody>
+<%end%>
+</tbody>
 </table>

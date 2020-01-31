@@ -21,11 +21,12 @@
   <div class="form-group">
     <label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер <%=session[:barber]%></label>
     <select class="form-control" id="barber" name='barber'>
-      <option>Наталія</option>
-      <option>Олена</option>
-      <option>Вікторія</option>
-      <option>Анастасія</option>
-      <option>Артур</option>
+      
+
+<%brr =  @barbers %>
+<%brr.each do |row|%>
+      <option <%=@barber == row['name'] ? 'selected' : ''%>><%=row['name']%></option>
+      <%end%>
     </select>
   </div>
   

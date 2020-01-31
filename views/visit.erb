@@ -5,18 +5,18 @@
 <form action="/visit" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">Ваше имя</label>
-    <input type="text" class="form-control" id="user_name_id" aria-describedby="user_name" name="user_name" value="<%=@user_name%>">
-    <small id="emailHelp" class="form-text text-muted">Пожалуйста введите Ваше имя</small>
+    <input type="text" class="form-control" id="user_name_id" aria-describedby="user_name" name="user_name" value="<%=session[:identity]%>">
+    <small id="emailHelp" class="form-text text-muted">Будь-ласка введіть Ваше ім'я</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Телефон</label>
     <input type="text" class="form-control ccc" id="exampleInputPassword1" name="phone_number" value="<%=@phone%>">
-    <small id="emailHelp" class="form-text text-muted">Пожалуйста введите Ваше телефон</small>
+    <small id="emailHelp" class="form-text text-muted">Будь-ласка введіть Ваш телефон</small>
   </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Время</label>
-    <input type="text" class="form-control ccc" id="datetimepicker" name="date" >
-    <small id="emailHelp" class="form-text text-muted">Пожалуйста введите удобное Вам время</small>
+    <input type="text" class="form-control ccc" id="datetimepicker" name="date" value="<%=@date%>">
+    <small id="emailHelp" class="form-text text-muted">Будь-ласка вкажіть який час буде вам зручний</small>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер <%=session[:barber]%></label>

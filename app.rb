@@ -60,11 +60,27 @@ post '/visit' do
   if params[:user_name] == ''
   @error=  "<div class='alert alert-danger'>Введіть як вас звати або зареєструйтесь</div>"
   return erb :visit
-  end
-  if params[:phone_number] == ''
-  @error=  "<div class='alert alert-danger'>Введіть будь-ласка контактний телефон</div>"
+  elsif params[:user_name].include?("'")
+    @error=  "<div class='alert alert-danger'>Охуел?</div>"
   return erb :visit
   end
+ if params[:phone_number] == ''
+  @error=  "<div class='alert alert-danger'>Введіть будь-ласка контактний телефон</div>"
+  return erb :visit
+  elsif params[:phone_number].include?("'")
+    @error=  "<div class='alert alert-danger'>Охуел?</div>"
+  return erb :visit
+  end
+   if params[:date] == ''
+  @error=  "<div class='alert alert-danger'>Введіть будь-ласка виберіть дату</div>"
+  return erb :visit
+  elsif params[:date].include?("'")
+    @error=  "<div class='alert alert-danger'>Охуел?</div>"
+  return erb :visit
+  end
+
+
+ 
   # @db = SQLite3::Database.new '.\public\barber.sqlite'
   #  @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
  # @db.execute "insert into Users(name,phone,datestamp,barber,color) values('#{@user_name}','#{@phone}','#{@date}','#{@barber}','#{@color}')"

@@ -1,3 +1,4 @@
+#encoding: UTF-8
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
@@ -72,12 +73,14 @@ post '/visit' do
 end
 
 get '/show_users' do
-  @db = get_db
- @db.results_as_hash = true
- @db.execute "SELECT * FROM Users" do |row|
- erb "#{row}"
+  # db = get_db
+  # @r =[]
+ # @db.results_as_hash = true
+ # @results = db.execute 'SELECT * FROM Users order by id desc'
+ # @r << ['11','22','33']
+ erb :show_users
+
  end
-end
 
 # post '/show_users' do
 

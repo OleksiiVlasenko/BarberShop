@@ -49,7 +49,7 @@ post '/' do
 erb (:table)
   end
 before do
-#код который будет иницилиазирован перед всеми представлениями
+#код который будет иницилиазирован перед всеми представлениями, каждыйр раз иниц, похож на configure в начале
 db = get_db 
 db.results_as_hash = true
 @barbers = db.execute "SELECT * FROM Barbers"
@@ -173,7 +173,7 @@ end
 
 get '/logout' do
   if session.delete(:identity) !=nil
-  erb "<div class='alert alert-danger'>Вихід користувача<%=@user_name%> успішний! </div> "
+  erb "<div class='alert alert-primary'>Вихід користувача<%=@user_name%> успішний! </div> "
 
 else
   redirect to '/'

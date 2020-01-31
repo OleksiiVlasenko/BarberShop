@@ -3,6 +3,10 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'net/smtp'
 require 'sqlite3'
+def get_db
+return SQLite3::Database.new '.\public\barber.sqlite'
+end
+
 configure do
   enable :sessions
  @db = get_db
@@ -79,9 +83,7 @@ end
 
 # end
 
-def get_db
-return SQLite3::Database.new '.\public\barber.sqlite'
-end
+
 
 get '/about' do
   erb :about

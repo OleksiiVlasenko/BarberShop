@@ -48,11 +48,11 @@ post '/visit' do
   @color= params[:color]
   session[:barber] = params[:barber]
   if params[:user_name] == ''
-  @error=  'Введіть як вас звати або зареєструйтесь'
+  @error=  "<div class='alert alert-danger'>Введіть як вас звати або зареєструйтесь</div>"
   return erb :visit
   end
   if params[:phone_number] == ''
-  @error=  'Введіть будь ласка контактний телефон'
+  @error=  "<div class='alert alert-danger'>Введіть будь-ласка контактний телефон</div>"
   return erb :visit
   end
   # @db = SQLite3::Database.new '.\public\barber.sqlite'
@@ -62,10 +62,6 @@ post '/visit' do
  @db = get_db
 @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]
 @db.close
-  info = "#{@user_name} #{@phone} #{@date} #{@barber} #{@color}\n"
-  f = File.open '.\public\visit.txt','a'
-  f.write info
-  f.close
 
   erb :visit
   erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"

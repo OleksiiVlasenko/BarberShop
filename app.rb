@@ -4,8 +4,27 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'net/smtp'
 require 'sqlite3'
+require 'sinatra/activerecord'
+
+set :database,"sqlite3:barber.db"
+
+
+# ----  Update to ActiveRecord ------
+
+class Client < ActiveRecord::Base
+
+
+end
+
+
+
+
+
+
+# ----  Update to ActiveRecord ------
+
 def get_db
-return SQLite3::Database.new '.\public\barber.sqlite'
+return SQLite3::Database.new '.\public\barber.db'
 end
 
 configure do

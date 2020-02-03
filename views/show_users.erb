@@ -11,7 +11,7 @@
     </tr>
   </thead>
  
-<%db = SQLite3::Database.new '.\public\barber.sqlite'%>
+<%db = SQLite3::Database.new '.\public\barber.db'%>
 <%db.results_as_hash = true%>
 <%result =  db.execute "SELECT * FROM Users order by id desc" %>
 <%result.each do |row|%>

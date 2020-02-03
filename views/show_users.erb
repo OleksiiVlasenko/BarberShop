@@ -11,8 +11,8 @@
     </tr>
   </thead>
  
-
-<%@clients.each do |row|%>
+<%clients_s = @clients.order "created_at DESC"%>
+<%clients_s.each do |row|%>
 <tbody>
     <tr>
       <th scope="row"><%=row['id']%></th>

@@ -13,8 +13,14 @@ set :database,"sqlite3:barber.db"
 
 class Client < ActiveRecord::Base
     validates :name, presence: true
+    validates :name, length: {in: 3..15}
+
     validates :phone, presence: true
+    validates :phone, numericality: { only_integer: true }
+    validates :phone, length: { is: }
+
     validates :datestamp, presence: true
+    validates :datestamp, date: {in:9..12}
 
 end
 
@@ -87,7 +93,7 @@ end
 
 get '/visit' do
   @client = Client.new
-  @barbers = Client.new
+
   erb (:visit)
 
 end

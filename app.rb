@@ -12,7 +12,9 @@ set :database,"sqlite3:barber.db"
 # ----  Update to ActiveRecord ------
 
 class Client < ActiveRecord::Base
-
+    validates :name, presence: true
+    validates :phone, presence: true
+    validates :datestamp, presence: true
 
 end
 
@@ -114,17 +116,23 @@ post '/visit' do
 
 # не забудь в инпутах где name нужно будет задать name="client[name]" где нейм имя поля в базе данных
  @client = Client.new params[:client]
- @client.save
+ @client.valid?
+ @client.save # метод сейв запускает валидацию
 
 # Еще один спрособ сохранять без дополнительного .сейв
   #Client.create :name=>params[:user_name],:phone=>params[:phone_number],:datestamp=>params[:date],:barber=>params[:barber],:color=>params[:color]
 # Еще один спрособ сохранять без дополнительного .сейв
 
   erb :visit
-   erb "<center><h3><b>Шановний <%=@client.name%>!!!</font></b></h4>
+   if @client.valid? erb "<center><h3><b>Шановний <%=@client.name%>!!!</font></b></h4>
     <h4>Ви записані до <%=@client.barber%></h4>
      <h4>Ми передвзонимо Вам на телефон: <%=@client.phone%></h4>
      <h4>За декілька годин до <%=@client.datestamp%> !!</h4></center>"
+   else
+
+    redirect "/visit"
+
+   end
 #   @user_name = params[:user_name]
 #   @phone = params[:phone_number]
 #   @date = params[:date]

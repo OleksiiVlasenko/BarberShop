@@ -30,9 +30,9 @@ end
 
 # ----  Update to ActiveRecord ------
 
-def get_db
-return SQLite3::Database.new '.\public\barber.db'
-end
+# def get_db
+# return SQLite3::Database.new '.\public\barber.db'
+# end
 
 configure do
   enable :sessions
@@ -82,11 +82,14 @@ before do
 # @barbers = db.execute "SELECT * FROM Barbers"
 @barbers = Barber.all
 @clients = Client.all
+
 end
 
 get '/visit' do
-
+  @client = Client.new
+  @barbers = Client.new
   erb (:visit)
+
 end
 
 post '/visit' do
@@ -117,6 +120,7 @@ post '/visit' do
 # не забудь в инпутах где name нужно будет задать name="client[name]" где нейм имя поля в базе данных
  @client = Client.new params[:client]
  @client.valid?
+
   # метод сейв запускает валидацию
 
 # Еще один спрособ сохранять без дополнительного .сейв

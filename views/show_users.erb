@@ -11,8 +11,8 @@
     </tr>
   </thead>
  
-<%result =  @clients%>
-<%result.each do |row|%>
+
+<%@clients.each do |row|%>
 <tbody>
     <tr>
       <th scope="row"><%=row['id']%></th>

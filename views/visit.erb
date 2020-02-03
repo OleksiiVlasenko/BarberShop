@@ -23,8 +23,8 @@
     <select class="form-control" id="barber" name='barber'>
       
 
-<%brr =  Barber.all%>
-<%brr.each do |row|%>
+
+<%@barbers.each do |row|%>
       <option <%=params[:barber] == row['name'] ? 'selected' : ''%>><%=row['name']%></option>
       <%end%>
     </select>

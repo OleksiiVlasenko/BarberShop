@@ -112,10 +112,7 @@ post '/visit' do
 
 
  
-  # @db = SQLite3::Database.new '.\public\barber.sqlite'
-  #  @db.execute 'CREATE TABLE IF NOT EXISTS "Users" ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
- # @db.execute "insert into Users(name,phone,datestamp,barber,color) values('#{@user_name}','#{@phone}','#{@date}','#{@barber}','#{@color}')"
-
+  
   @db = get_db
   @is_date_valid = @db.execute 'SELECT id FROM Users where ? = datestamp',[@date]
   if @is_date_valid != []

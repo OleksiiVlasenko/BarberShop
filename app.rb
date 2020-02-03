@@ -34,14 +34,15 @@ end
 
 configure do
   enable :sessions
- @db = get_db
- @db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
- ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
- TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
 
- @db.execute 'CREATE TABLE IF NOT EXISTS "Barbers" 
- ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
- TEXT,"type"  TEXT, "workingtime" TEXT);'
+ # @db = get_db
+ # @db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
+ # ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
+ # TEXT,"phone" TEXT,"datestamp" TEXT, "barber"  TEXT, "color" TEXT);'
+
+ # @db.execute 'CREATE TABLE IF NOT EXISTS "Barbers" 
+ # ("id"  INTEGER PRIMARY KEY AUTOINCREMENT,"name"  
+ # TEXT,"type"  TEXT, "workingtime" TEXT);'
 end
 
 helpers do
@@ -61,9 +62,9 @@ before '/secure/*' do
 end
 
 get '/' do
-   erb (:table)
-    
-  
+
+  @barbers = Barber.all
+erb (:table)
   
 end
 
@@ -74,26 +75,19 @@ erb (:table)
   end
 before do
 #код который будет иницилиазирован перед всеми представлениями, каждыйр раз иниц, похож на configure в начале
-db = get_db 
-db.results_as_hash = true
-@barbers = db.execute "SELECT * FROM Barbers"
+# db = get_db 
+# db.results_as_hash = true
+# @barbers = db.execute "SELECT * FROM Barbers"
+
 end
 
 get '/visit' do
- 
-  erb :visit
+
+  erb (:visit)
 end
 
 post '/visit' do
-
-  
-  @user_name = params[:user_name]
-  @phone = params[:phone_number]
-  @date = params[:date]
-  @barber = params[:barber]
-  @color= params[:color]
-  session[:barber] = params[:barber]
-  if params[:user_name] == ''
+if params[:user_name] == ''
   @error=  "<div class='alert alert-danger'>Введіть як вас звати або зареєструйтесь</div>"
   return erb :visit
   elsif params[:user_name].include?("'")
@@ -114,22 +108,35 @@ post '/visit' do
     @error=  "<div class='alert alert-danger'>Охуел?</div>"
   return erb :visit
   end
+  Client.create :name=>params[:user_name],:phone=>params[:phone_number],:datestamp=>params[:date],:barber=>params[:barber],:color=>params[:color]
+  erb :visit
+   erb "<center><h3><b>Шановний <%=params[:user_name]%>!!!</font></b></h4>
+    <h4>Ви записані до <%=params[:barber]%></h4>
+     <h4>Ми передвзонимо Вам на телефон: <%=params[:phone_number]%></h4>
+     <h4>За декілька годин до <%=params[:date]%> !!</h4></center>"
+#   @user_name = params[:user_name]
+#   @phone = params[:phone_number]
+#   @date = params[:date]
+#   @barber = params[:barber]
+#   @color= params[:color]
+#   session[:barber] = params[:barber]
+  
 
 
  
   
-  @db = get_db
-  @is_date_valid = @db.execute 'SELECT id FROM Users where ? = datestamp',[@date]
-  if @is_date_valid != []
-   @error=  "<div class='alert alert-danger'>Ця дата зайнята</div>"  
-  return erb :visit
-else
-   @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]  
-  end
-  # @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]
-  @db.close
-  erb :visit
-  erb "<center><h3><b>Шановний <%=@user_name%>!!!</font></b></h4> <h4>Ви записані до <%=@barber%></h4> <h4>Ми передвзонимо Вам на телефон: <%=@phone%></h4>  <h4><%=@date%>За декілька годин до <%=@date%> !!</h4></center>"
+#   @db = get_db
+#   @is_date_valid = @db.execute 'SELECT id FROM Users where ? = datestamp',[@date]
+#   if @is_date_valid != []
+#    @error=  "<div class='alert alert-danger'>Ця дата зайнята</div>"  
+#   return erb :visit
+# else
+#    @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]  
+#   end
+#   # @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]
+#   @db.close
+  
+ 
 end
 
 get '/show_users' do
@@ -138,6 +145,8 @@ get '/show_users' do
  # @db.results_as_hash = true
  # @results = db.execute 'SELECT * FROM Users order by id desc'
  # @r << ['11','22','33']
+  @clients = Client.all
+
  erb :show_users
 
  end

@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_173559) do
     t.text "time_work"
   end
 
-  create_table "client", force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.text "name"
     t.text "phone"
     t.text "datestamp"

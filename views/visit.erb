@@ -5,22 +5,22 @@
 <form action="/visit" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">Ваше имя</label>
-    <input type="text" class="form-control" id="user_name_id" aria-describedby="user_name" name="user_name" value="<%=session[:identity]%>">
+    <input type="text" class="form-control" id="user_name_id" aria-describedby="user_name" name="client[name]" value="">
     <small id="emailHelp" class="form-text text-muted">Будь-ласка введіть Ваше ім'я</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Телефон</label>
-    <input type="text" class="form-control ccc" id="exampleInputPassword1" name="phone_number" value="<%=@phone%>">
+    <input type="text" class="form-control ccc" id="exampleInputPassword1" name="client[phone]" value="">
     <small id="emailHelp" class="form-text text-muted">Будь-ласка введіть Ваш телефон</small>
   </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Время</label>
-    <input type="text" class="form-control ccc" id="datetimepicker" name="date" value="<%=@date%>">
+    <input type="text" class="form-control ccc" id="datetimepicker" name="client[datestamp]" value="">
     <small id="emailHelp" class="form-text text-muted">Будь-ласка вкажіть який час буде вам зручний</small>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер </label>
-    <select class="form-control" id="barber" name='barber'>
+    <select class="form-control" id="barber" name="client[barber]">
       
 
 

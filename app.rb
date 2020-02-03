@@ -88,44 +88,49 @@ get '/visit' do
 end
 
 post '/visit' do
-if params[:user_name] == ''
-  @error=  "<div class='alert alert-danger'>Введіть як вас звати або зареєструйтесь</div>"
-  return erb :visit
-  elsif params[:user_name].include?("'")
-    @error=  "<div class='alert alert-danger'>Охуел?</div>"
-  return erb :visit
-  end
- if params[:phone_number] == ''
-  @error=  "<div class='alert alert-danger'>Введіть будь-ласка контактний телефон</div>"
-  return erb :visit
-  elsif params[:phone_number].include?("'")
-    @error=  "<div class='alert alert-danger'>Охуел?</div>"
-  return erb :visit
-  end
-   if params[:date] == ''
-  @error=  "<div class='alert alert-danger'>Введіть будь-ласка виберіть дату</div>"
-  return erb :visit
-  elsif params[:date].include?("'")
-    @error=  "<div class='alert alert-danger'>Охуел?</div>"
-  return erb :visit
-  end
-  Client.create :name=>params[:user_name],:phone=>params[:phone_number],:datestamp=>params[:date],:barber=>params[:barber],:color=>params[:color]
+
+# if params[:user_name] == ''
+#   @error=  "<div class='alert alert-danger'>Введіть як вас звати або зареєструйтесь</div>"
+#   return erb :visit
+#   elsif params[:user_name].include?("'")
+#     @error=  "<div class='alert alert-danger'>Охуел?</div>"
+#   return erb :visit
+#   end
+#  if params[:phone_number] == ''
+#   @error=  "<div class='alert alert-danger'>Введіть будь-ласка контактний телефон</div>"
+#   return erb :visit
+#   elsif params[:phone_number].include?("'")
+#     @error=  "<div class='alert alert-danger'>Охуел?</div>"
+#   return erb :visit
+#   end
+#    if params[:date] == ''
+#   @error=  "<div class='alert alert-danger'>Введіть будь-ласка виберіть дату</div>"
+#   return erb :visit
+#   elsif params[:date].include?("'")
+#     @error=  "<div class='alert alert-danger'>Охуел?</div>"
+#   return erb :visit
+#   end
+
+
+# не забудь в инпутах где name нужно будет задать name="client[name]" где нейм имя поля в базе данных
+ @client = Client.new params[:client]
+ @client.save
+
+# Еще один спрособ сохранять без дополнительного .сейв
+  #Client.create :name=>params[:user_name],:phone=>params[:phone_number],:datestamp=>params[:date],:barber=>params[:barber],:color=>params[:color]
+# Еще один спрособ сохранять без дополнительного .сейв
+
   erb :visit
-   erb "<center><h3><b>Шановний <%=params[:user_name]%>!!!</font></b></h4>
-    <h4>Ви записані до <%=params[:barber]%></h4>
-     <h4>Ми передвзонимо Вам на телефон: <%=params[:phone_number]%></h4>
-     <h4>За декілька годин до <%=params[:date]%> !!</h4></center>"
+   erb "<center><h3><b>Шановний <%=@client.name%>!!!</font></b></h4>
+    <h4>Ви записані до <%=@client.barber%></h4>
+     <h4>Ми передвзонимо Вам на телефон: <%=@client.phone%></h4>
+     <h4>За декілька годин до <%=@client.datestamp%> !!</h4></center>"
 #   @user_name = params[:user_name]
 #   @phone = params[:phone_number]
 #   @date = params[:date]
 #   @barber = params[:barber]
 #   @color= params[:color]
 #   session[:barber] = params[:barber]
-  
-
-
- 
-  
 #   @db = get_db
 #   @is_date_valid = @db.execute 'SELECT id FROM Users where ? = datestamp',[@date]
 #   if @is_date_valid != []
@@ -136,8 +141,6 @@ if params[:user_name] == ''
 #   end
 #   # @db.execute 'insert into Users(name,phone,datestamp,barber,color) values(?,?,?,?,?)', [@user_name,@phone,@date,@barber,@color]
 #   @db.close
-  
- 
 end
 
 get '/show_users' do

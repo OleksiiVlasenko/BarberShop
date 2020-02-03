@@ -79,6 +79,7 @@ before do
 # db.results_as_hash = true
 # @barbers = db.execute "SELECT * FROM Barbers"
 @barbers = Barber.all
+@clients = Client.all
 end
 
 get '/visit' do
@@ -145,7 +146,7 @@ get '/show_users' do
  # @db.results_as_hash = true
  # @results = db.execute 'SELECT * FROM Users order by id desc'
  # @r << ['11','22','33']
-  @clients = Client.all
+  
 
  erb :show_users
 

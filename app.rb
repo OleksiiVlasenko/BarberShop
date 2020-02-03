@@ -63,22 +63,22 @@ end
 
 get '/' do
 
-  @barbers = Barber.all
+  
 erb (:table)
   
 end
 
 post '/' do
-
     @user_name = session[:identity]
-erb (:table)
+    erb (:table)
   end
+
 before do
 #код который будет иницилиазирован перед всеми представлениями, каждыйр раз иниц, похож на configure в начале
 # db = get_db 
 # db.results_as_hash = true
 # @barbers = db.execute "SELECT * FROM Barbers"
-
+@barbers = Barber.all
 end
 
 get '/visit' do

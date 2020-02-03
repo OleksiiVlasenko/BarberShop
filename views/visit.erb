@@ -19,13 +19,13 @@
     <small id="emailHelp" class="form-text text-muted">Будь-ласка вкажіть який час буде вам зручний</small>
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер <%=session[:barber]%></label>
+    <label for="exampleInputEmail1" data-toggle="tooltip" title="Але ви можете вибрати собі іншого майста">Вільний майстер </label>
     <select class="form-control" id="barber" name='barber'>
       
 
-<%brr =  @barbers %>
+<%brr =  Barber.all%>
 <%brr.each do |row|%>
-      <option <%=@barber == row['name'] ? 'selected' : ''%>><%=row['name']%></option>
+      <option <%=params[:barber] == row['name'] ? 'selected' : ''%>><%=row['name']%></option>
       <%end%>
     </select>
   </div>

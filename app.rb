@@ -17,10 +17,10 @@ class Client < ActiveRecord::Base
 
     validates :phone, presence: true
     validates :phone, numericality: { only_integer: true }
-    validates :phone, length: { is: }
+    validates :phone, length: { is: 13}
 
     validates :datestamp, presence: true
-    validates :datestamp, date: {in:9..12}
+
 
 end
 
@@ -177,7 +177,11 @@ get '/show_users' do
 # post '/show_users' do
 
 # end
-
+get "/barber/:barber_id" do
+  @barber_id = params[:barber_id]
+  @barber1 = @barbers.find_by(id: "#{@barber_id}")
+  erb :barber
+end
 
 
 get '/about' do

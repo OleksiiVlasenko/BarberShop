@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_173559) do
     t.text "name"
     t.text "type_prof"
     t.text "time_work"
+    t.text "about"
   end
 
   create_table "clients", force: :cascade do |t|

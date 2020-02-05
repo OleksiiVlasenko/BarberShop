@@ -1,0 +1,30 @@
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Майстер</th>
+      <th scope="col">Професійність</th>
+      <th scope="col">Час роботи</th>
+    </tr>
+  </thead>
+ 
+
+<tbody>
+    <tr>
+      <th scope="row"></th>
+      <td><%=@barber1.name%></td>
+      <td><%=@barber1.type_prof%></td>
+      <td><%=@barber1.time_work%></td>
+    </tr>
+
+</tbody>
+</table>
+
+<div class="media">
+  <img src="/resources/barber.jfif" class="mr-3" alt="...">
+  <div class="media-body">
+    <h5 class="mt-0">Про майстра</h5>
+    <%=@barber1.about%>
+  </div>
+</div>
